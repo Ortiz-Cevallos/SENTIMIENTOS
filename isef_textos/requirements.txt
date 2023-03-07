@@ -1,0 +1,12 @@
+matplotlib
+numpy
+openpyxl==3.0.9
+pandas
+pathlib
+plotly==5.9.0
+PyPrind==2.11.3
+scikit-learn
+spacy
+spacy-lookups-data
+wordcloud==1.8.1
+

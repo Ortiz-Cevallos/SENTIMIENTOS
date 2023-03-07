@@ -1,0 +1,59 @@
+---
+title: "APLICACIÓN PROGRAMA BANCO DE ESPAÑA PARA EL ANÁLISIS DE SENTIMIENTOS"
+output: pdf_document
+date: "2022-10-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introducción
+
+Este markdown tiene el propósito de mostrar el uso de los scripts de evaluación de sentimiento del Informe de Estabilidad Financiera creados por Ángel Iván Moreno y Carlos González, del Banco de España.
+
+## Preparación
+Una vez teniendo el fichero isef_textos.zip en la capeta donde se ubica este markdown lo descomprimimos
+
+
+```{python}
+import shutil
+shutil.unpack_archive('/Users/luiscevallos/Documents/SENTIMIENTOS/isef_textos.zip', '/Users/luiscevallos/Documents/SENTIMIENTOS/APLICA')
+```
+
+Y realizamos la instalación de la librería spacy-lookups-data, que no está por defecto en colab
+
+```{r}
+library(reticulate)
+#py_install("spacy")
+#py_install("spacy-lookups-data")
+#py_install("wordcloud")
+#py_install("scikit-learn")
+#py_install("openpyxl")
+#py_install("plotly")
+#py_install("ipywidgets")
+```
+
+
+# Ejecución
+
+Ejecutamos el script directamenente. Esto sería equivalente a ejecutar isef_textos.bat desde Windows.
+
+Se puede indicar un diccionario a usar. Por defecto se usa **finalBdE_dict.xlsx**. Este diccionario contiene palabras con signos diacríticos (tildes) e incluye información de la distribución de opiniones de los diferentes anotadores que participaron en la creación del diccionario, con lo que se incluyen palabras que su categorización final fue neutra, pero fue valorada con sentimiento por algún anotador
+
+Otros diccionarios son:
+
+**BdE_dict.xlsx**: Diccionario original sin signos diacríticos y sin incluir las palabras que finalmente se categorizaron como neutras. Contiene dos palabras menos que el original dado que contagió y contagio se consideran la misma, así como deterioro y deterioró. 
+
+**BCCh_dict.xlsx** : Diccionario confeccionado por el Banco Central de Chile. No contiene signos diacríticos y tampoco información de la distribución de anotadores.
+
+**BCCH_BdE_dict.xlsx** : Diccionario consolidado del Banco de España y Banco Central de Chile. Las palabras exposición y exposiciones han sido eliminadas del consolidado.
+
+Pero antes cambiamos el directorio actual al directorio donde está el script:
+
+
+```{python}
+import os
+os.chdir("/Users/luiscevallos/Documents/SENTIMIENTOS/APLICA/isef_textos/python")
+import isef_textos 
+```
